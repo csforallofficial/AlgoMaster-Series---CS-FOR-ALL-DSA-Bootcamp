@@ -1,3 +1,5 @@
+//1st Approach - 
+
 int distributeCandies(vector<int>& candyType) {
 
         //store the number of candies present
@@ -19,3 +21,20 @@ int distributeCandies(vector<int>& candyType) {
     
     //Time Complexity - O(NlogN)
     //Space Complexity - O(N)
+
+//Final Approach - 
+
+    int distributeCandies(vector<int>& candyType) {
+        int N = candyType.size();
+        unordered_map<int,int> track;
+        for(int index = 0; index < N; index++){
+            track[candyType[index]]++;
+        }
+        if(track.size()<=N/2)
+            return track.size();
+        return N/2;
+    }
+
+    //Time Complexity - O(N)
+    //Space Complexity - O(N)
+
