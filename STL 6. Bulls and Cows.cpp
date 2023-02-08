@@ -19,5 +19,5 @@ string getHint(string secret, string guess) {
         return ans;
     }
     
-//Time Complexity - O(N) + O(26), where N is the number of characters present in the Secret and Guess Strings.
-//Space Complexity - O(2*26) + O(2)
+//Time Complexity - O(N) + O(10), where N is the number of characters present in the Secret and Guess Strings.
+//Space Complexity - O(2*10) + O(2)
