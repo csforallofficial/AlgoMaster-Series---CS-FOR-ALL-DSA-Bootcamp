@@ -22,4 +22,4 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x) {
     }
 
 //Time Complexity - O(NlogN) + O(klogN) + O(klogN)
-//Space Complexity - O(k)
+//Space Complexity - O(k) + O(N)
