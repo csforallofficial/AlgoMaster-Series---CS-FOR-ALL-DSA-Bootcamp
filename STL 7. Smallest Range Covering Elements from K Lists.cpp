@@ -1,26 +1,44 @@
 vector<int> smallestRange(vector<vector<int>>& nums) {
         int k = nums.size();
-        int left = -1e5, right = 1e5, maxi = INT_MIN;
         priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int,int>>>> pq;
+        int maxi = INT_MIN;
         for(int index = 0; index < k; index++){
-            pq.push(make_pair(nums[index][0],make_pair(index,0)));
+            //pair<value, pair<cur_list,cur_index>>
+            //value = nums[index][0]
+            //cur_list = index
+            //cur_index = 0
+            //make_pair(nums[index][0], make_pair(index, 0))
+            pq.push(make_pair(nums[index][0], make_pair(index, 0)));
             maxi = max(maxi, nums[index][0]);
         }
-        left = pq.top().first;;
-        right = maxi;
-        int current_list = pq.top().second.first;
-        int current_index = pq.top().second.second;
+        //pq.first -> value
+        //pq.second -> pair
+        //pq.second.first -> cur_list
+        //pq.second.second ->cur_index
+        int mini = pq.top().first;
+        int left = -1e5, right = 1e5;
+        if(maxi-mini<right-left){
+            left = mini;
+            right = maxi;
+        }
+        int cur_list = pq.top().second.first;
+        int cur_ind = pq.top().second.second;
+
+        //next_element = nums[cur_list][cur_ind+1]
+        //next_element_cur_list = cur_list
+        //next_element_cur_ind = cur_ind+1
+        //make_pair(nums[cur_list][cur_ind+1], make_pair(cur_list,cur_ind+1));
         pq.pop();
-        while(current_index+1<nums[current_list].size()){
-            pq.push(make_pair(nums[current_list][current_index+1],make_pair(current_list,current_index+1)));
-            maxi = max(maxi,nums[current_list][current_index+1]);
-            int mini = pq.top().first;
-            if((right-left)>(maxi-mini)){
+        while(cur_ind+1<nums[cur_list].size()){
+            pq.push(make_pair(nums[cur_list][cur_ind+1], make_pair(cur_list,cur_ind+1)));
+            maxi = max(maxi, nums[cur_list][cur_ind+1]);
+            mini = pq.top().first;
+            if(maxi-mini<right-left){
                 left = mini;
                 right = maxi;
             }
-            current_list = pq.top().second.first;
-            current_index = pq.top().second.second;
+            cur_list = pq.top().second.first;
+            cur_ind = pq.top().second.second;
             pq.pop();
         }
         vector<int> ans;
